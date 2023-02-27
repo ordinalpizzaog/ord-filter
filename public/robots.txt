@@ -1,0 +1,10 @@
+# robots.txt
+
+# Block all crawlers for /accounts
+user-agent: *
+disallow: /images
+disallow: /ordinals
+
+# Allow all crawlers
+user-agent: *
+allow: /

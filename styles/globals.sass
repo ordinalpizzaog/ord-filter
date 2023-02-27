@@ -1,0 +1,45 @@
+
+:root
+  --background-color: #75d9ff
+
+html, body
+  padding: 0
+  margin: 0
+  min-height: 100vh
+  z-index: -100
+  font-family: 'Nunito', sans-serif
+
+html
+  background: var(--background-color)
+
+main
+  flex-grow: 1
+  background: transparent
+  display: flex
+  align-items: center
+  flex-direction: column
+  padding: 0
+  overflow: hidden
+
+a:link, a:visited, a:hover, a:active
+  text-decoration: none
+  color: black
+
+*
+  box-sizing: border-box
+
+button
+  color: black
+  font-family: 'Rock Salt', cursive
+  cursor: pointer
+  z-index: 100
+  -webkit-tap-highlight-color: transparent
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+button:disabled
+  cursor: default

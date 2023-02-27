@@ -1,0 +1,273 @@
+.main
+    display: flex
+    flex-direction: row
+    align-items: stretch
+    height: 100vh
+
+.mainContainer
+    padding: 2rem
+    padding-top: 1rem
+    overflow-y: auto
+    flex-grow: 1
+
+.collectionContainer
+    padding-top: 1rem
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(min(40%, 15rem), 1fr))
+    gap: 1rem
+
+.collectionContainer > h1
+    grid-column: 1/-1
+    font-family: 'Rock Salt', cursive
+    text-align: center
+
+.resizableContainer
+    background: #b8e4ff
+    position: relative
+    min-width: 0rem
+    transition: min-width 200ms ease-out
+    height: 100%
+
+.resizableContainer[open]
+    min-width: 20rem
+
+.propertyList
+    position: absolute
+    right: 0px
+    display: flex
+    flex-direction: column
+    align-content: stretch
+    width: 20rem
+    height: 100%
+    overflow-y: auto
+
+.propertyContainer
+    margin: 0rem 1rem
+
+.propertyButton
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    border: none
+    width: 100%
+    background: transparent
+    border-radius: 0.4rem
+    padding: 0.5rem
+
+.propertyButton:hover
+    background: rgba(255, 255, 255, 0.3)
+
+.propertyButton > p
+    font-family: 'Nunito', sans-serif
+    margin: 0
+    font-weight: bold
+    font-size: 1.2rem
+
+.propertyButton > p:first-of-type
+    flex-grow: 1
+    text-align: start
+
+.propertyButton > p:last-of-type
+    color: #555
+    font-size: 0.9rem
+    margin-right: 0.5rem
+
+.traitsList
+    display: flex
+    flex-direction: column
+    max-height: 0rem
+    overflow: hidden
+    transition: max-height 200ms ease-out
+
+.traitsList[open]
+    max-height: 52rem
+
+.traitContainer
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    border: none
+    background: transparent
+    border-radius: 0.4rem
+    font-size: 1rem
+    margin-left: 0.5rem
+    padding: 0.5rem
+
+.traitContainer:hover
+    background: rgba(255, 255, 255, 0.3)
+
+.traitContainer > p
+    font-family: 'Nunito', sans-serif
+    margin: 0
+    cursor: inherit
+
+.traitContainer > p:first-of-type
+    flex-grow: 1
+    text-align: start
+
+.traitContainer > p:last-of-type
+    color: #555
+    font-size: 0.8rem
+    margin-right: 0.5rem
+
+.checkbox
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none
+    appearance: none
+    /* For iOS < 15 to remove gradient background */
+    background: transparent
+    /* Not removed via appearance */
+    margin: 0
+    font: inherit
+    color: white
+    width: 1.15rem
+    height: 1.15rem
+    border: 2px solid #555
+    border-radius: 0.25rem
+    display: grid
+    place-content: center
+    cursor: pointer
+
+.checkbox[checked]
+    border: 2px solid #0091ff
+    background: #0091ff
+
+.checkbox[checked]::before
+    content: ""
+    width: 1rem
+    height: 1rem
+    background: white
+    transform: translateX(-0.04rem)
+    mask: url(/images/check.svg) center/100% no-repeat
+    -webkit-mask: url(/images/check.svg) center/100% no-repeat
+
+.topContainer
+    align-items: flex-start
+    display: flex
+    flex-direction: row
+    gap: 1rem
+    padding: 0rem 1rem
+
+.filterContainer
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    gap: 0.5rem
+    align-items: center
+
+.filterCard
+    background: #b8e4ff
+    display: flex
+    flex-direction: row
+    border-radius: 0.5rem
+    padding: 0.5rem 0.5rem 0.5rem 1rem
+    gap: 0.3rem
+    align-items: center
+
+.filterCardProperty
+    font-weight: bold
+    margin: 0
+
+.filterCardTrait
+    margin: 0
+
+.fomojisCard
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    font-size: 1rem
+    border-radius: 1rem
+    gap: 0rem
+    background: white
+    border: 3px solid #555
+    --spacing: min(1rem, 3vw)
+    padding: var(--spacing)
+    gap: var(--spacing)
+    font-family: 'Rock Salt', cursive
+    cursor: pointer
+    transition: transform 100ms ease-out
+    -webkit-tap-highlight-color: transparent
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+.fomojisCard:hover
+    transform: scale(1.04)
+
+.fomojisCard > p
+    margin: 0rem
+    color: black
+    text-decoration-line: none
+
+.imageContainer
+    aspect-ratio: 1
+    position: relative
+    width: 100%
+    border-radius: 0.5rem
+    overflow: hidden
+
+.clearAll
+    font-family: 'Nunito', sans-serif
+    font-size: 1.1rem
+    margin-left: 0.4rem
+    -webkit-tap-highlight-color: transparent
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+.clearAll:hover
+    cursor: pointer
+    color: #333
+
+.exitContainer
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    position: relative
+    margin: 0.5rem
+
+.exitContainer > p
+    font-family: 'Rock Salt', cursive
+    font-size: 1.5rem
+    margin: 0rem
+
+@media(max-width: 36rem)
+    .mainContainer
+        padding: 0.5rem
+        padding-top: 1rem
+
+    .collectionContainer
+        grid-template-columns: repeat(2, 1fr)
+        gap: 0.5rem
+        padding-top: 0.5rem
+    
+@media(max-width: 45rem)
+    .resizableContainer
+        position: fixed
+        bottom: 0
+        transition: height 200ms ease-out
+        height: 0%
+        width: 100%
+        z-index: 1000
+        min-width: 0rem
+
+    .resizableContainer[open]
+        height: 100%
+        min-width: 0rem
+
+    .propertyList
+        width: 100%
+    
+    .topContainer
+        flex-direction: column
+        gap: 0.5rem
