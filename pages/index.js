@@ -196,14 +196,14 @@ export default function Collection({ inscriptions, properties, counts }) {
           <div className={styles.collectionContainer}>
             {filteredInscriptions.map((inscription) => 
               <Link href={`/${inscription.inscription_number}`} key={inscription.fomojis_number}>
-                <div className={styles.ordinalsCard}>
+                <div className={styles.imageCard}>
                   <div className={styles.imageContainer}>
                     <Image src={`/ordinals/${inscription.inscription_number}.jpeg`}
                            fill
                            style={{ objectFit: "contain" }}
                            alt={`Image of #${inscription.inscription_number}`}/>
                   </div>
-                  <p>{`#${inscription.inscription_number}`}</p>
+                  <h1>{`#${inscription.inscription_number}`}</h1>
                 </div>
               </Link>
               )
@@ -233,7 +233,7 @@ function SideBar({ isOpen, filters, counts, setState, toggleSideBar }) {
     <div className={styles.resizableContainer} open={isOpen}>
       <div className={styles.propertyList}>
         <div className={styles.exitContainer}>
-          <p>Filters</p>
+          <h1>Filters</h1>
           <IconButton icon="exit" onClick={toggleSideBar} ariaLabel="Close Filter" style={{
             margin: "0.3rem",
             position: "absolute",

@@ -23,7 +23,6 @@
 
 .collectionContainer > h1
     grid-column: 1/-1
-    font-family: 'Rock Salt', cursive
     text-align: center
 
 .resizableContainer
@@ -64,7 +63,6 @@
     background: $hover-color
 
 .propertyButton > p
-    font-family: 'Nunito', sans-serif
     margin: 0
     font-weight: bold
     font-size: 1.2rem
@@ -110,7 +108,6 @@
     background: $hover-color
 
 .traitContainer > p
-    font-family: 'Nunito', sans-serif
     margin: 0
     cursor: inherit
 
@@ -190,7 +187,7 @@
     cursor: pointer
     background: $on-primary-color
 
-.ordinalsCard
+.imageCard
     display: flex
     flex-direction: column
     align-items: center
@@ -203,7 +200,6 @@
     --spacing: min(1rem, 3vw)
     padding: var(--spacing)
     gap: var(--spacing)
-    font-family: 'Rock Salt', cursive
     cursor: pointer
     transition: transform 100ms ease-out
     -webkit-tap-highlight-color: transparent
@@ -214,10 +210,11 @@
     -ms-user-select: none
     user-select: none
 
-.ordinalsCard:hover
+.imageCard:hover
     transform: scale(1.04)
 
-.ordinalsCard > p
+.imageCard > h1
+    font-size: 1rem
     margin: 0rem
 
 .imageContainer
@@ -228,7 +225,6 @@
     overflow: hidden
 
 .clearAll
-    font-family: 'Nunito', sans-serif
     font-size: 1.1rem
     margin: 0
     margin-left: 0.4rem
@@ -252,8 +248,7 @@
     position: relative
     margin: 0.5rem
 
-.exitContainer > p
-    font-family: 'Rock Salt', cursive
+.exitContainer > h1
     font-size: 1.5rem
     margin: 0rem
 
