@@ -48,7 +48,40 @@ The `lib/inscriptions.json` file contains all the metadata about your Ordinals, 
 ```
 It is not an issue if there are additional properties, as they will be ignored. For example, if you have created an `inscriptions.json` file for [Ordinals Wallet](https://github.com/ordinals-wallet/ordinals-collections), then that will work without any changes. Checkout `lib/inscriptions.json` for a full example
 
+### Images
+All images must go in `public/ordinals`. Images should be named their inscription number (not inscription ID), and should be JPEG's with extension `.jpeg` (not `.jpg`)
 
+If your images are not JPEG's, then you will need to update `pages/index.js` line 201 and `pages/[inscription-number].js` line 52 to use the file extension of your images
+
+### Colors
+I highly encourage you to change the colors of the website to create your own theme, and to differentiate it from Ordinal Fomojis
+
+All of the colors used throughout the website are defined in `styles/_variables.sass`. Read the associated comments in that file to understand where each color is used. If you don't understand the hex color codes in the file, there are countless tools online to generate colors, such as [this one](https://fffuel.co/cccolor/)
+
+### Fonts
+I also recommend changing the fonts to align with your brand. You will need to use a font from [Google Fonts](https://fonts.google.com/) (unless you know how to load a downloaded font into React.js)
+
+The website has two fonts, a title font and a body font. When selecting your fonts in Google Fonts, ensure you select Regular 400 and Bold 700 weights for the body font, and a Regular 400 weight for the title font. Once you have selected your fonts, Google Fonts will give you the code needed to use it. You will get the option between `<link>` and `@import`. Select the `@import` one. It will give you something like this
+```
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Rock+Salt&display=swap');
+</style>
+```
+Just take the middle line, and make sure to remove the semicolon at the end (this is important). So you should end up with something like
+```
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Rock+Salt&display=swap')
+```
+Replace the existing font import in `styles/globals.sass` with your font import (line 2)
+
+Google Fonts will also give you the CSS rules to specify the font families, which will look like
+```
+font-family: 'Nunito', sans-serif;
+font-family: 'Rock Salt', cursive;
+```
+In the `styles/globals.sass` file replace the font under the `p` with your body font (line 5) and replce the font under the `h1` with your title font (line 8). Again, it is important you remove the semocolons from the code Google Fonts gives you. There should not be any semicolons in `styles/globals.sass`, otherwise the website will crash
+
+### Site map
+A site map is needed for search engine optimisation. If it is not correct, you site will not appear on Google or other search engines. In `public/sitemap.xml`, change `https://fomojis.io` to your website url
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

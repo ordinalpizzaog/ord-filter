@@ -36,7 +36,7 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default function Incription({ width, inscription }) {
+export default function Incription({ inscription }) {
   return (
     <>
       <Head>
