@@ -1,3 +1,5 @@
+@import 'styles/variables'
+
 .underlineButton
   font-size: inherit
   border: none
@@ -37,12 +39,12 @@
   aspect-ratio: 1
 
 .iconButton:hover
-  background: rgba(255, 255, 255, 0.3)
+  background: $hover-color
 
 .button
-  background: var(--secondary-color)
+  background: $secondary-color
   box-shadow: rgba(0, 0, 0, 0.379) 0px 8px 12px -4px
-  color: var(--on-secondary-color)
+  color: $on-secondary-color
   font-size: 1.3rem
   font-weight: bold
   border-radius: 10rem
@@ -64,4 +66,4 @@
   margin: 0rem 0.3rem
 
 .button:hover
-  // background: lighten(var(--secondary-color), 3%)
+  background: lighten($secondary-color, 3%)

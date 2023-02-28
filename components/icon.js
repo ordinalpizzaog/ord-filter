@@ -1,12 +1,10 @@
 import styles from '../styles/button.module.sass'
 
-export default function Icon({ icon, style, onClick }) {
+export default function Icon({ icon, style, onClick, className }) {
   let defaultStyle = {
     mask: `url(/images/${icon}.svg) center/100% no-repeat`,
     WebkitMask: `url(/images/${icon}.svg) center/100% no-repeat`,
     aspectRatio: "1",
-    backgroundColor: "black",
-    padding: "0",
     WebkitTapHighlightColor: "transparent",
     WebkitTouchCallout: "none",
     WebkitUserSelect: "none",
@@ -15,5 +13,5 @@ export default function Icon({ icon, style, onClick }) {
     MsUserSelect: "none",
     userSelect: "none"
   }
-  return <div style={style ? {...defaultStyle, ...style} : defaultStyle} className={styles.icon} onClick={onClick}/>
+  return <div style={style ? {...defaultStyle, ...style} : defaultStyle} className={className} onClick={onClick}/>
 }

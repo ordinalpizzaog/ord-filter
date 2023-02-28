@@ -122,7 +122,7 @@ function filterInscriptions(inscriptions, filters) {
   return filteredInscriptions
 }
 
-export default function Collection({ width, inscriptions, properties, counts }) {
+export default function Collection({ inscriptions, properties, counts }) {
   const router = useRouter()
   const [filters, setFilters] = useState(properties)
   const [filterList, setFilterList] = useState([])
@@ -189,14 +189,14 @@ export default function Collection({ width, inscriptions, properties, counts }) 
                 <FilterCard property={filter.property} trait={filter.trait} setState={setState} key={`card_${filter.property}_${filter.trait}`}/>
               )}
               {filterList.length > 0 &&
-                <div className={styles.clearAll} onClick={() => setQueryFilters(router, [])}>Clear All</div>
+                <p className={styles.clearAll} onClick={() => setQueryFilters(router, [])}>Clear All</p>
               }
             </div>
           </div>
           <div className={styles.collectionContainer}>
             {filteredInscriptions.map((inscription) => 
               <Link href={`/${inscription.inscription_number}`} key={inscription.fomojis_number}>
-                <div className={styles.fomojisCard}>
+                <div className={styles.ordinalsCard}>
                   <div className={styles.imageContainer}>
                     <Image src={`/ordinals/${inscription.inscription_number}.jpeg`}
                            fill
@@ -223,11 +223,7 @@ function FilterCard({ property, trait, setState }) {
     <div className={styles.filterCard}>
       <p className={styles.filterCardProperty}>{property}: </p>
       <p className={styles.filterCardTrait}>{trait}</p>
-      <Icon icon="exit" onClick={ () => setState(property, trait, false) } style={{ 
-        width: "1rem",
-        marginLeft: "0.3rem",
-        cursor: "pointer"
-      }} />
+      <Icon icon="exit" onClick={ () => setState(property, trait, false) } className={styles.filterCardExit} />
     </div>
   )
 }
@@ -265,11 +261,7 @@ function FilterProperty({ property, filters, counts, setState }) {
       <button className={styles.propertyButton} onClick={toggleOpen}>
         <p>{property}</p>
         <p>{Object.keys(filters).length}</p>
-        <Icon icon="caret-down" style={{
-          width: "1rem",
-          transition: "transform 200ms ease-out",
-          transform: `scaleY(${open ? -1 : 1})`
-        }}/>
+        <Icon icon="caret-down" className={styles.downArrow} style={{ transform: `scaleY(${open ? -1 : 1})` }}/>
       </button>
       <div className={styles.traitsList} open={open}>
         {Object.keys(filters).map((trait) =>

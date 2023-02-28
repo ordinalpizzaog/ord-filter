@@ -1,12 +1,4 @@
-:root
-  --primary-color: #75d9ff              // Background
-  --on-primary-color:   white                  // Text color on background
-  --secondary-color: rgb(110, 92, 215)  // Color of buttons
-  --on-secondary-color: white             // Text color on buttons
-  --surface-color: white                       // Color of the cards on the individual ordinal page
-  --attribute-color:  white                    // Color of the cards displaying attributes
-  --attribute-border-color:    white           // Color of the border around the attributes
-  --filter-background-color: #b8e4ff    // Color of the filter pane
+@import 'styles/variables'
 
 html, body
   padding: 0
@@ -16,7 +8,7 @@ html, body
   font-family: 'Nunito', sans-serif
 
 html
-  background-color: var(--primary-color)
+  background: $primary-color
 
 main
   flex-grow: 1

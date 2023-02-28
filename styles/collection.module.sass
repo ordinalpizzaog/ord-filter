@@ -1,8 +1,13 @@
+@import 'styles/variables'
+    
 .main
     display: flex
     flex-direction: row
     align-items: stretch
     height: 100vh
+
+.collectionContainer p, .resizableContainer p, .filterContainer p
+    color: $on-primary-color
 
 .mainContainer
     padding: 2rem
@@ -22,7 +27,7 @@
     text-align: center
 
 .resizableContainer
-    background: #b8e4ff
+    background: $filter-background-color
     position: relative
     min-width: 0rem
     transition: min-width 200ms ease-out
@@ -56,7 +61,7 @@
     padding: 0.5rem
 
 .propertyButton:hover
-    background: rgba(255, 255, 255, 0.3)
+    background: $hover-color
 
 .propertyButton > p
     font-family: 'Nunito', sans-serif
@@ -69,9 +74,15 @@
     text-align: start
 
 .propertyButton > p:last-of-type
-    color: #555
+    color: lighten($on-primary-color, 30%)
     font-size: 0.9rem
     margin-right: 0.5rem
+
+.downArrow
+    background: $on-primary-color
+    width: 1rem
+    transition: transform 200ms ease-out
+    padding: 0
 
 .traitsList
     display: flex
@@ -96,7 +107,7 @@
     padding: 0.5rem
 
 .traitContainer:hover
-    background: rgba(255, 255, 255, 0.3)
+    background: $hover-color
 
 .traitContainer > p
     font-family: 'Nunito', sans-serif
@@ -108,7 +119,7 @@
     text-align: start
 
 .traitContainer > p:last-of-type
-    color: #555
+    color: lighten($on-primary-color, 30%)
     font-size: 0.8rem
     margin-right: 0.5rem
 
@@ -158,7 +169,7 @@
     align-items: center
 
 .filterCard
-    background: #b8e4ff
+    background: $filter-background-color
     display: flex
     flex-direction: row
     border-radius: 0.5rem
@@ -173,7 +184,13 @@
 .filterCardTrait
     margin: 0
 
-.fomojisCard
+.filterCardExit
+    width: 1rem
+    margin-left: 0.3rem
+    cursor: pointer
+    background: $on-primary-color
+
+.ordinalsCard
     display: flex
     flex-direction: column
     align-items: center
@@ -181,8 +198,8 @@
     font-size: 1rem
     border-radius: 1rem
     gap: 0rem
-    background: white
-    border: 3px solid #555
+    background: $image-card-background
+    border: 3px solid $image-card-border
     --spacing: min(1rem, 3vw)
     padding: var(--spacing)
     gap: var(--spacing)
@@ -197,13 +214,11 @@
     -ms-user-select: none
     user-select: none
 
-.fomojisCard:hover
+.ordinalsCard:hover
     transform: scale(1.04)
 
-.fomojisCard > p
+.ordinalsCard > p
     margin: 0rem
-    color: black
-    text-decoration-line: none
 
 .imageContainer
     aspect-ratio: 1
@@ -215,6 +230,7 @@
 .clearAll
     font-family: 'Nunito', sans-serif
     font-size: 1.1rem
+    margin: 0
     margin-left: 0.4rem
     -webkit-tap-highlight-color: transparent
     -webkit-touch-callout: none
@@ -226,7 +242,7 @@
 
 .clearAll:hover
     cursor: pointer
-    color: #333
+    color: lighten($on-primary-color, 20%)
 
 .exitContainer
     display: flex

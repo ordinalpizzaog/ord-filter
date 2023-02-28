@@ -21,7 +21,7 @@ export default function IconButton({ icon, onClick, href, openTab, ariaLabel, st
             onClick={buttonOnClick}
             aria-label={ariaLabel}
             style={style ? style : {width: "3.4rem"}}>
-      <Icon icon={icon} style={{ margin: "5%" }}/>
+      <Icon icon={icon} style={{ margin: "5%", background: "black" }}/>
     </button>
   )
 }
