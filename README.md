@@ -61,7 +61,7 @@ All of the colors used throughout the website are defined in `styles/_variables.
 ### Fonts
 I also recommend changing the fonts to align with your brand. You will need to use a font from [Google Fonts](https://fonts.google.com/) (unless you know how to load a downloaded font into React.js)
 
-The website has two fonts, a title font and a body font. When selecting your fonts in Google Fonts, ensure you select Regular 400 and Bold 700 weights for the body font, and a Regular 400 weight for the title font. Once you have selected your fonts, Google Fonts will give you the code needed to use it. You will get the option between `<link>` and `@import`. Select the `@import` one. It will give you something like this
+The website has two fonts, a title font and a body font. When selecting your fonts in Google Fonts, ensure you select Regular 400 and Bold 700 weights for the body font, and a Regular 400 weight for the title font. Once you have selected your fonts, Google Fonts will give you the code needed to use it. You will get the option between `<link>` and `@import`. Select `@import`. It will give you something like this
 ```
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Rock+Salt&display=swap');
@@ -78,12 +78,16 @@ Google Fonts will also give you the CSS rules to specify the font families, whic
 font-family: 'Nunito', sans-serif;
 font-family: 'Rock Salt', cursive;
 ```
-In the `styles/globals.sass` file replace the font under the `p` with your body font (line 5) and replce the font under the `h1` with your title font (line 8). Again, it is important you remove the semocolons from the code Google Fonts gives you. There should not be any semicolons in `styles/globals.sass`, otherwise the website will crash
+In the `styles/globals.sass` file replace the font under the `p` with your body font (line 5) and replace the font under the `h1` with your title font (line 8). Again, it is important you remove the semicolons from the code Google Fonts gives you. There should not be any semicolons in `styles/globals.sass`, otherwise the website will crash
 
 ### Site map
-A site map is needed for search engine optimisation. If it is not correct, you site will not appear on Google or other search engines. In `public/sitemap.xml`, change `https://fomojis.io` to your website url
+A site map is needed for search engine optimisation. If it is not correct, you site will may appear on Google or other search engines. In `public/sitemap.xml`, change `https://fomojis.io` to your website url
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+### favicon
+
+### Title and description
 
 ## Getting Started
 

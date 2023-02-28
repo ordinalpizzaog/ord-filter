@@ -141,7 +141,7 @@ export default function Collection({ inscriptions, properties, counts }) {
       setFilterList(filterList)
       setFilteredInscriptions(filterInscriptions(inscriptions, properties))
     }
-  }, [router.query])
+  }, [router.query, router, inscriptions, properties])
 
   function toggleSideBar() {
     setSideBarOpen(!sideBarOpen)
