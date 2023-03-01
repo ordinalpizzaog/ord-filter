@@ -27,7 +27,7 @@ export async function getStaticProps() {
       counts[attribute.trait_type][attribute.value]++
     }
 
-    inscription.inscription_number = fetchInscriptionNumber(inscription.id)
+    inscription.inscription_number = await fetchInscriptionNumber(inscription.id)
   }
 
   let properties = {}

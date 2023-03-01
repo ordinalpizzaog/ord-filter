@@ -28,7 +28,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
   let inscription = inscriptions.filter((inscription) => inscription.id == params.id)[0]
-  inscription.inscription_number = fetchInscriptionNumber(inscription.id)
+  inscription.inscription_number = await fetchInscriptionNumber(inscription.id)
   inscription.meta.attributes.sort((a, b) => a.trait_type.localeCompare(b.trait_type))
   return {
     props: {
