@@ -180,7 +180,7 @@ export default function Collection({ inscriptions, properties, counts, config })
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>{config.name}</title>
+        <title>{config.title}</title>
         <meta name="description"
               content={config.description}
               key="desc"/>

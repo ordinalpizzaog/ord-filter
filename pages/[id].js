@@ -11,7 +11,6 @@ import { fetchInscriptionNumber } from '@/lib/utils'
 
 export async function getStaticPaths() {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
-  let config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/config.json')))
   let paths = inscriptions.map((inscription) => {
     return {
       params: {
@@ -46,7 +45,7 @@ export default function Incription({ inscription, config }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>{config.title} - {inscription.name}</title>
+        <title>{config.title} - {inscription.inscription_number}</title>
         <meta name="description"
               content={config.description}
               key="desc"/>
