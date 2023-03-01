@@ -11,6 +11,7 @@ import { fetchInscriptionNumber } from '@/lib/utils'
 
 export async function getStaticPaths() {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
+  let config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/config.json')))
   let paths = inscriptions.map((inscription) => {
     return {
       params: {
@@ -27,24 +28,27 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
+  let config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/config.json')))
+
   let inscription = inscriptions.filter((inscription) => inscription.id == params.id)[0]
   inscription.inscription_number = await fetchInscriptionNumber(inscription.id)
   inscription.meta.attributes.sort((a, b) => a.trait_type.localeCompare(b.trait_type))
   return {
     props: {
-      inscription
+      inscription,
+      config
     }
   }
 }
 
-export default function Incription({ inscription }) {
+export default function Incription({ inscription, config }) {
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>Ordinal Fomojis - {inscription.name}</title>
+        <title>{config.title} - {inscription.name}</title>
         <meta name="description"
-              content="A collection of 100 digital artifacts inscribed as Ordinals on the Bitcoin blockchain"
+              content={config.description}
               key="desc"/>
       </Head>
       <main className={styles.mainContainer}>

@@ -14,6 +14,8 @@ import { fetchInscriptionNumber } from '@/lib/utils'
 
 export async function getStaticProps() {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
+  let config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/config.json')))
+
   let counts = {}
   for (let inscription of inscriptions) {
     let attributes = inscription.meta.attributes
@@ -49,7 +51,8 @@ export async function getStaticProps() {
     props: {
       inscriptions,
       properties,
-      counts
+      counts,
+      config
     }
   }
 }
@@ -125,7 +128,7 @@ function filterInscriptions(inscriptions, filters) {
   return filteredInscriptions
 }
 
-export default function Collection({ inscriptions, properties, counts }) {
+export default function Collection({ inscriptions, properties, counts, config }) {
   const router = useRouter()
   const [filters, setFilters] = useState(properties)
   const [filterList, setFilterList] = useState([])
@@ -177,9 +180,9 @@ export default function Collection({ inscriptions, properties, counts }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>Ordinal Fomojis - Collection</title>
+        <title>{config.name}</title>
         <meta name="description"
-              content="A collection of 100 digital artifacts inscribed as Ordinals on the Bitcoin blockchain"
+              content={config.description}
               key="desc"/>
       </Head>
       <main className={styles.main}>
