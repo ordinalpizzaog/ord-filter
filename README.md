@@ -3,9 +3,13 @@
 This is a simple website that displays a collection of ordinals, along with a filter. Below is an example used with the Ordinal Fomojis collection, which is available on https://ord-filter.vercel.app, and is also used on the [Ordinal Fomojis website](https://www.fomojis.io)
 
 On the collection page, all Ordinals are visible, and are labelled with their inscription number. The Ordinals can be filtered by trait, and as many filters as you want can be applied. Each filter can be removed one by one either by unticking it in the filter pane, or clicking the cross on the filter cards at the top. All filters can be cleared using the "Clear all" button
+
 <img width="1552" alt="collection_preview" src="https://user-images.githubusercontent.com/125774731/221779768-8f1e52c7-e10d-4f1d-a47f-266ac4d57590.png">
+
 Clicking on an individual Ordinal on the collection page brings up more detailed information about it, including its inscription id, all it's attributes, and a button to take you to its ordinals.com page. Also, any of the attributes can be clicked, which will take you to the collection page showing just the Ordinals with that trait
+
 <img width="1552" alt="individual_preview" src="https://user-images.githubusercontent.com/125774731/221779715-f1cddae4-9693-4a05-ba35-2291bf53cb94.png">
+
 Note about terminology: throughout this repo, I use the word trait and attribute interchangeably. I also use property and trait type interchangeably. In the example above, we have a Lavender background. Here, Lavender is the trait or attribute, while the property or trait type is Background
 
 This repo is available for other Ordinals projects to use. You can either use it as is, or you can integrate it into an existing website and add new features to it. It is built with a React.js front end, with a Next.js backend
@@ -80,11 +84,11 @@ In the `styles/globals.sass` file replace the font under the `p` with your body 
 ### Site map
 A site map is needed for search engine optimisation. If it is not correct, you site will may appear on Google or other search engines. In `public/sitemap.xml`, change `https://fomojis.io` to your website url
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ### favicon
 A favicon is the logo for your website and is used in various situations, most notably as the icon in the tab for your website as seen below
+
 <img width="377" alt="Screen Shot 2023-03-01 at 10 19 29 pm" src="https://user-images.githubusercontent.com/125774731/222125154-8520eea4-6eaa-4bbf-8435-7ee944a099cd.png">
+
 The favicon consists of 7 files, so that the icon can be displayed correctly at various different sizes
 - `android-chrome-192x192.png`
 - `android-chrome-512x512.png`
@@ -93,6 +97,7 @@ The favicon consists of 7 files, so that the icon can be displayed correctly at 
 - `favicon-32x32.png`
 - `favicon.ico`
 - `site.webmanifest`
+
 All of these files need to go in the `public` folder. You can use online tools such as [favicon.io](https://favicon.io/) to generate all of these files for you
 
 Note: favicon.io asks you to copy a bunch of tags into the head of the HTML. This is already done, you don't need to do this. All you need is the 7 files above in the `public` folder
@@ -101,8 +106,11 @@ Note: favicon.io asks you to copy a bunch of tags into the head of the HTML. Thi
 You can set the title and description in `lib/config.json`.
 
 The title is displayed in the tabs as seen below
+
 <img width="377" alt="Screen Shot 2023-03-01 at 10 19 29 pm" src="https://user-images.githubusercontent.com/125774731/222125154-8520eea4-6eaa-4bbf-8435-7ee944a099cd.png">
+
 And the description is displayed in social media posts such as Discord or Twitter. Below is an example from Discord
+
 <img width="533" alt="Screen Shot 2023-03-01 at 10 22 02 pm" src="https://user-images.githubusercontent.com/125774731/222125528-e207dc53-bace-4c4b-a257-9ce3a7b24451.png">
 
 ## Hosting
