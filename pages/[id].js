@@ -68,7 +68,7 @@ export default function Incription({ inscription }) {
 function HeaderInfo({ inscription }) {
   return (
     <div className={styles.headerContainer}>
-      <h1>{`Inscription #${inscription.meta.name}`}</h1>
+      <h1>{`Inscription #${inscription.inscription_number}`}</h1>
       <div className={styles.idContainer}>
         <p>{`ID: ${inscription.id}`}</p>
         <IconButton icon="copy" 
