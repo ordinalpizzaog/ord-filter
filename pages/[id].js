@@ -88,7 +88,7 @@ function HeaderInfo({ inscription }) {
 function TraitsInfo({ inscription }) {
   return (
     <div className={styles.attributesContainer}>
-      <p>Attributes</p>
+      <h1>Attributes</h1>
       <div className={styles.attributesGrid}>
         {inscription.meta.attributes.map((attribute) =>
           <TraitCard attribute={attribute} key={`${attribute.trait_type}_${attribute.value}`}/>
