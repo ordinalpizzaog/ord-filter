@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   let paths = inscriptions.map((inscription) => {
     return {
       params: {
-        inscription_number: inscription.inscription_number
+        id: inscription.id
       }
     }
   })
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
-  let inscription = inscriptions.filter((inscription) => inscription.inscription_number == params.inscription_number)[0]
+  let inscription = inscriptions.filter((inscription) => inscription.id == params.id)[0]
 
   inscription.meta.attributes.sort((a, b) => a.trait_type.localeCompare(b.trait_type))
   return {
@@ -41,7 +41,7 @@ export default function Incription({ inscription }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>Ordinal Fomojis - {inscription.inscription_number}</title>
+        <title>Ordinal Fomojis - {inscription.name}</title>
         <meta name="description"
               content="A collection of 100 digital artifacts inscribed as Ordinals on the Bitcoin blockchain"
               key="desc"/>
@@ -49,10 +49,10 @@ export default function Incription({ inscription }) {
       <main className={styles.mainContainer}>
         <div className={styles.contentContainer}>
           <div className={styles.imageContainer}>
-            <Image src={`/ordinals/${inscription.inscription_number}.jpeg`}
+            <Image src={`/ordinals/${inscription.id}.jpeg`}
                    fill
                    style={{ objectFit: "contain" }}
-                   alt={`Image of #${inscription.inscription_number}`}/>
+                   alt={`Image of ${inscription.name}`}/>
           </div>
           <div className={styles.infoContainer}>
             <HeaderInfo inscription={inscription}/>
@@ -67,7 +67,7 @@ export default function Incription({ inscription }) {
 function HeaderInfo({ inscription }) {
   return (
     <div className={styles.headerContainer}>
-      <h1>{`Inscription #${inscription.inscription_number}`}</h1>
+      <h1>{inscription.meta.name}</h1>
       <div className={styles.idContainer}>
         <p>{`ID: ${inscription.id}`}</p>
         <IconButton icon="copy" 

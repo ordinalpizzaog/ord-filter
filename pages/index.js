@@ -11,6 +11,8 @@ import IconButton from '../components/icon-button'
 import Icon from '../components/icon'
 import Button from '../components/button'
 
+let inscription_regex = /<h1>Inscription (\d*)<\/h1>/
+
 export async function getStaticProps() {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
   let counts = {}
@@ -25,6 +27,10 @@ export async function getStaticProps() {
       }
       counts[attribute.trait_type][attribute.value]++
     }
+
+    let ordinals_response = await fetch(`https://ordinals.com/inscription/${inscription.id}`)
+    let ordinals_text = await ordinals_response.text()
+    inscription.inscription_number = inscription_regex.exec(ordinals_text)[1]
   }
 
   let properties = {}
@@ -195,10 +201,10 @@ export default function Collection({ inscriptions, properties, counts }) {
           </div>
           <div className={styles.collectionContainer}>
             {filteredInscriptions.map((inscription) => 
-              <Link href={`/${inscription.inscription_number}`} key={inscription.fomojis_number}>
+              <Link href={`/${inscription.id}`} key={inscription.meta.name}>
                 <div className={styles.imageCard}>
                   <div className={styles.imageContainer}>
-                    <Image src={`/ordinals/${inscription.inscription_number}.jpeg`}
+                    <Image src={`/ordinals/${inscription.id}.jpeg`}
                            fill
                            style={{ objectFit: "contain" }}
                            alt={`Image of #${inscription.inscription_number}`}/>
