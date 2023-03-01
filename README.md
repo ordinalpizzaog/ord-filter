@@ -17,7 +17,7 @@ I have tried to make these instructions accessible to people without web develop
 
 To get started, Fork this repo into your own Github account (I recommend forking it rather than duplicating the code in your own repo so you can pull updates and improvements when I add them)
 
-Once you have forked and cloned the repo onto your computer, `cd` into `ord-filter` and execute `npm run dev`. You can then view the website on `localhost:3000`. It will update live, so when you change the code and save it, the website will automatically update to reflect the change
+Once you have forked and cloned the repo onto your computer, `cd` into `ord-filter` and execute `npm run dev`. You can then view the website on `localhost:3000`. It will update live, so when you change the code and save it, the website will automatically update to reflect the change. Note: performance in development is significantly worse than it will be when it is built properly, becuase it tries to download the inscription numbers from ordinals.com every time a change is made, whereas this normally only happens once when the website is built.
 
 ## Setup
 
@@ -47,11 +47,6 @@ The `lib/inscriptions.json` file contains all the metadata about your Ordinals, 
 ]
 ```
 It is not an issue if there are additional properties, as they will be ignored. For example, if you have created an `inscriptions.json` file for [Ordinals Wallet](https://github.com/ordinals-wallet/ordinals-collections), then that will work without any changes. Checkout `lib/inscriptions.json` for a full example
-
-### Images
-All images must go in `public/ordinals`. Images should be named their inscription number (not inscription ID), and should be JPEG's with extension `.jpeg` (not `.jpg`)
-
-If your images are not JPEG's, then you will need to update `pages/index.js` line 201 and `pages/[inscription-number].js` line 52 to use the file extension of your images
 
 ### Colors
 I highly encourage you to change the colors of the website to create your own theme, and to differentiate it from Ordinal Fomojis
