@@ -53,7 +53,7 @@ export default function Incription({ inscription }) {
             <Image src={`https://ordinals.com/content/${inscription.id}`}
                    fill
                    style={{ objectFit: "contain" }}
-                   alt={`Image of ${inscription.name}`}/>
+                   alt={`Image of #${inscription.inscription_number}`}/>
           </div>
           <div className={styles.infoContainer}>
             <HeaderInfo inscription={inscription}/>
@@ -68,7 +68,7 @@ export default function Incription({ inscription }) {
 function HeaderInfo({ inscription }) {
   return (
     <div className={styles.headerContainer}>
-      <h1>{inscription.meta.name}</h1>
+      <h1>{`Inscription #${inscription.meta.name}`}</h1>
       <div className={styles.idContainer}>
         <p>{`ID: ${inscription.id}`}</p>
         <IconButton icon="copy" 
