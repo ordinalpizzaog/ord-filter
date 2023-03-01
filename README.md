@@ -17,7 +17,9 @@ I have tried to make these instructions accessible to people without web develop
 
 To get started, Fork this repo into your own Github account (I recommend forking it rather than duplicating the code in your own repo so you can pull updates and improvements when I add them)
 
-Once you have forked and cloned the repo onto your computer, `cd` into `ord-filter` and execute `npm run dev`. You can then view the website on `localhost:3000`. It will update live, so when you change the code and save it, the website will automatically update to reflect the change. Note: performance in development is significantly worse than it will be when it is built properly, becuase it tries to download the inscription numbers from ordinals.com every time a change is made, whereas this normally only happens once when the website is built.
+Once you have forked and cloned the repo onto your computer, `cd` into `ord-filter` and execute `npm run dev`. You can then view the website on `localhost:3000`. It will update live, so when you change the code and save it, the website will automatically update to reflect the change. 
+
+Note: performance in development is significantly worse than it will be when it is built properly, becuase it tries to download the inscription numbers from ordinals.com every time a change is made, whereas this normally only happens once when the website is built.
 
 ## Setup
 
