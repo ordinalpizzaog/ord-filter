@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Button from '../components/button'
 import IconButton from '../components/icon-button'
 import Link from 'next/link'
+import { fetchInscriptionNumber } from '@/lib/utils'
 
 export async function getStaticPaths() {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
@@ -27,7 +28,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
   let inscription = inscriptions.filter((inscription) => inscription.id == params.id)[0]
-
+  inscription.inscription_number = fetchInscriptionNumber(inscription.id)
   inscription.meta.attributes.sort((a, b) => a.trait_type.localeCompare(b.trait_type))
   return {
     props: {
@@ -49,7 +50,7 @@ export default function Incription({ inscription }) {
       <main className={styles.mainContainer}>
         <div className={styles.contentContainer}>
           <div className={styles.imageContainer}>
-            <Image src={`/ordinals/${inscription.id}.jpeg`}
+            <Image src={`https://ordinals.com/content/${inscription.id}`}
                    fill
                    style={{ objectFit: "contain" }}
                    alt={`Image of ${inscription.name}`}/>

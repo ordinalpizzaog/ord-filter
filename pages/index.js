@@ -10,8 +10,7 @@ import styles from '../styles/collection.module.sass'
 import IconButton from '../components/icon-button'
 import Icon from '../components/icon'
 import Button from '../components/button'
-
-let inscription_regex = /<h1>Inscription (\d*)<\/h1>/
+import { fetchInscriptionNumber } from '@/lib/utils'
 
 export async function getStaticProps() {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
@@ -28,9 +27,7 @@ export async function getStaticProps() {
       counts[attribute.trait_type][attribute.value]++
     }
 
-    let ordinals_response = await fetch(`https://ordinals.com/inscription/${inscription.id}`)
-    let ordinals_text = await ordinals_response.text()
-    inscription.inscription_number = inscription_regex.exec(ordinals_text)[1]
+    inscription.inscription_number = fetchInscriptionNumber(inscription.id)
   }
 
   let properties = {}
