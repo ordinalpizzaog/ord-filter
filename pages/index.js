@@ -204,7 +204,7 @@ export default function Collection({ inscriptions, properties, counts }) {
               <Link href={`/${inscription.id}`} key={inscription.meta.name}>
                 <div className={styles.imageCard}>
                   <div className={styles.imageContainer}>
-                    <Image src={`/ordinals/${inscription.id}.jpeg`}
+                    <Image src={`https://ordinals.com/content/${inscription.id}`}
                            fill
                            style={{ objectFit: "contain" }}
                            alt={`Image of #${inscription.inscription_number}`}/>
