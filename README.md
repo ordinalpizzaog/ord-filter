@@ -58,7 +58,7 @@ It is not an issue if there are additional properties, as they will be ignored. 
 ### Colors
 I highly encourage you to change the colors of the website to create your own theme, and to differentiate it from Ordinal Fomojis
 
-All of the colors used throughout the website are defined in `styles/_variables.sass`. Read the associated comments in that file to understand where each color is used. If you don't understand the hex color codes in the file, there are countless tools online to generate colors, such as [this one](https://fffuel.co/cccolor/)
+All of the colors used throughout the website are defined in `styles/_variables.sass`. Read the associated comments in that file to understand where each color is used. There are countless tools online to generate the color hex codes, such as [this one](https://fffuel.co/cccolor/)
 
 ### Fonts
 I also recommend changing the fonts to align with your brand. You will need to use a font from [Google Fonts](https://fonts.google.com/) (unless you know how to load a downloaded font into React.js)
