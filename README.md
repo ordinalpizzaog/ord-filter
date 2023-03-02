@@ -10,12 +10,12 @@ Clicking on an individual Ordinal on the collection page brings up more detailed
 
 <img width="1552" alt="individual_preview" src="https://user-images.githubusercontent.com/125774731/221779715-f1cddae4-9693-4a05-ba35-2291bf53cb94.png">
 
-Note about terminology: throughout this repo, I use the word trait and attribute interchangeably. I also use property and trait type interchangeably. In the example above, we have a Lavender background. Here, Lavender is the trait or attribute, while the property or trait type is Background
-
-This repo is available for other Ordinals projects to use. You can either use it as is, or you can integrate it into an existing website and add new features to it. It is built with a React.js front end, with a Next.js backend
+The source code is free for other projects to use how they would like to. It is built with a React.js front end, with a Next.js backend
 
 ## Need help?
-I have tried to make these instructions accessible to people without web development experience (but you will need to know how to use git). If you are having trouble, jump into the [Fomojis Discord](https://discord.gg/mmPQF7tDQ4) and raise a ticket. I (Vannix) will try to help you out with any issues setting this up
+If you have any questions, jump into the [Fomojis Discord](https://discord.gg/mmPQF7tDQ4) and raise a ticket. I (Vannix) will try to help you out with any issues
+
+If you discover bugs or other issues, please raise an issue in GitHub and I will try to address it as soon as possible
 
 ## Running in development
 
@@ -26,6 +26,7 @@ Once you have forked and cloned the repo onto your computer, `cd` into `ord-filt
 Note: performance in development is significantly worse than it will be when it is built properly, becuase it tries to download the inscription numbers from ordinals.com every time a change is made, whereas this normally only happens once when the website is built.
 
 ## Setup
+The below instructions outline the minimal changes that need to be made if you want to set up this website for your collection. You can also take any parts from the source code and put them into your own website
 
 ### inscriptions.json
 The `lib/inscriptions.json` file contains all the metadata about your Ordinals, such as the inscription ids and the traits. You will need to replace the existing file with your metadata. It has the following structure
@@ -114,9 +115,6 @@ And the description is displayed in social media posts such as Discord or Twitte
 <img width="533" alt="Screen Shot 2023-03-01 at 10 22 02 pm" src="https://user-images.githubusercontent.com/125774731/222125528-e207dc53-bace-4c4b-a257-9ce3a7b24451.png">
 
 ## Hosting
+If you don't already have a deployed website, you can deply this on a hosting service of you choice. Instructions for this can be found on the [Next.js docs](https://nextjs.org/docs/deployment)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+I recommed hosting the website on Vercel. Vercel created Next.js, so their services are optimised for it. It is relatively cheap, and if you don't expect much traffic the free plan may be sufficient. You can also buy domain names for a decent price through Vercel. All you need to do is create a project and connect you github repo and it will deploy automatically. Click [here](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) to set it up
