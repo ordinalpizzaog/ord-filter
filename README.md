@@ -101,8 +101,6 @@ The favicon consists of 7 files, so that the icon can be displayed correctly at 
 
 All of these files need to go in the `public` folder. You can use online tools such as [favicon.io](https://favicon.io/) to generate all of these files for you
 
-Note: favicon.io asks you to copy a bunch of tags into the head of the HTML. This is already done, you don't need to do this. All you need is the 7 files above in the `public` folder
-
 ### Title and description
 You can set the title and description in `lib/config.json`.
 
