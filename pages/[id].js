@@ -31,7 +31,6 @@ export async function getStaticProps({ params }) {
 
   let inscription = inscriptions.filter((inscription) => inscription.id == params.id)[0]
   inscription.inscription_number = await fetchInscriptionNumber(inscription.id)
-  inscription.meta.attributes.sort((a, b) => a.trait_type.localeCompare(b.trait_type))
   return {
     props: {
       inscription,
@@ -61,7 +60,6 @@ export default function Incription({ inscription, config }) {
           </div>
           <div className={styles.infoContainer}>
             <HeaderInfo inscription={inscription}/>
-            <TraitsInfo inscription={inscription}/>
           </div>
         </div>
       </main>
@@ -100,31 +98,5 @@ function HeaderItem({ name, value, copyButton }) {
         <p>{value}</p>
       }
     </div>
-  )
-}
-
-function TraitsInfo({ inscription }) {
-  return (
-    <div className={styles.attributesContainer}>
-      <h1>Attributes</h1>
-      <div className={styles.attributesGrid}>
-        {inscription.meta.attributes.map((attribute) =>
-          <TraitCard attribute={attribute} key={`${attribute.trait_type}_${attribute.value}`}/>
-        )}
-      </div>
-    </div>
-  )
-}
-
-function TraitCard({ attribute }) {
-  let query = encodeURIComponent(`${attribute.trait_type}-${attribute.value}`)
-  return (
-    <Link href={`/?filters=${query}`}>
-      <div className={styles.attribute}>
-        <p className={styles.property}>{attribute.trait_type}</p>
-        <p className={styles.trait}>{attribute.value}</p>
-        <p className={styles.rarity}>{`${attribute.percent} have this trait`}</p>
-      </div>
-    </Link>
   )
 }
