@@ -113,6 +113,6 @@ And the description is displayed in social media posts such as Discord or Twitte
 <img width="533" alt="Screen Shot 2023-03-01 at 10 22 02 pm" src="https://user-images.githubusercontent.com/125774731/222125528-e207dc53-bace-4c4b-a257-9ce3a7b24451.png">
 
 ## Hosting
-If you don't already have a deployed website, you can deply this on a hosting service of you choice. Instructions for this can be found on the [Next.js docs](https://nextjs.org/docs/deployment)
+If you don't already have a deployed website, you can deploy this on a hosting service of you choice. Instructions for this can be found on the [Next.js docs](https://nextjs.org/docs/deployment)
 
 I recommed hosting the website on Vercel. Vercel created Next.js, so their services are optimised for it. It is relatively cheap, and if you don't expect much traffic the free plan may be sufficient. You can also buy domain names for a decent price through Vercel. All you need to do is create a project and connect you github repo and it will deploy automatically. Click [here](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) to set it up
