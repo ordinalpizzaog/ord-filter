@@ -72,18 +72,32 @@ function HeaderInfo({ inscription }) {
   return (
     <div className={styles.headerContainer}>
       <h1>{`Inscription #${inscription.inscription_number}`}</h1>
-      <div className={styles.idContainer}>
-        <p>{`ID: ${inscription.id}`}</p>
-        <IconButton icon="copy" 
-                    onClick={() => navigator.clipboard.writeText(inscription.id)}
-                    style={{ minWidth: "1.7rem" }}
-                    ariaLabel="Copy inscription ID"/>
-      </div>
+      <HeaderItem name="ID" value={inscription.id} copyButton/>
       <Button text="View on Ordinals.com" href={`https://ordinals.com/inscription/${inscription.id}`} openTab style={{
-        margin: "0.5rem 1rem 1rem auto",
+        margin: "0.5rem 0.5rem 0.5rem auto",
         fontWeight: "normal",
         fontSize: "1rem"
       }}/>
+    </div>
+  )
+}
+
+function HeaderItem({ name, value, copyButton }) {
+  return (
+    <div className={styles.headerItem}>
+      <p>{name}</p>
+      {copyButton &&
+        <div className={styles.copyText}>
+          <p>{value}</p>
+          <IconButton icon="copy" 
+                      onClick={() => navigator.clipboard.writeText(value)}
+                      style={{ minWidth: "1.7rem" }}
+                      ariaLabel={`Copy ${name}`}/>
+        </div>
+      }
+      {!copyButton &&
+        <p>{value}</p>
+      }
     </div>
   )
 }

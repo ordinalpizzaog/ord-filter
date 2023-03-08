@@ -39,17 +39,31 @@
     padding: 1rem 2rem 0rem 2rem
     margin: 0
 
-.idContainer > p
-    font-size: 0.8rem
+.headerItem
+    font-size: 0.9rem
+    border-bottom: 1px solid #fff8
+    padding: 0.5rem 1rem
+    gap: 0.1rem
+    display: flex
+    flex-direction: column
+
+.headerItem p
     min-width: 0
     margin: 0
     overflow: hidden
     white-space: nowrap
     text-overflow: ellipsis
+    font-family: 'Nunito', sans-serif
     transform: translateY(1px)
 
-.idContainer
-    margin: 1rem 1rem 0rem 1rem
+.headerItem > p:first-of-type
+    font-size: 0.8rem
+    color: #444
+    text-transform: uppercase
+    font-weight: bold
+
+.copyText
+    height: calc(43em / 32)
     display: flex
     flex-direction: row
     align-items: center
