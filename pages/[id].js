@@ -56,6 +56,7 @@ export default function Incription({ inscription, config }) {
             <Image src={`https://ordinals.com/content/${inscription.id}`}
                    fill
                    style={{ objectFit: "contain" }}
+                   priority
                    alt={`Image of #${inscription.inscription_number}`}/>
           </div>
           <div className={styles.infoContainer}>
@@ -118,7 +119,7 @@ function TraitsInfo({ inscription }) {
 function TraitCard({ attribute }) {
   let query = encodeURIComponent(`${attribute.trait_type}-${attribute.value}`)
   return (
-    <Link href={`/?${query}`}>
+    <Link href={`/?filters=${query}`}>
       <div className={styles.attribute}>
         <p className={styles.property}>{attribute.trait_type}</p>
         <p className={styles.trait}>{attribute.value}</p>

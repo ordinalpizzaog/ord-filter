@@ -16,101 +16,132 @@ export async function getStaticProps() {
   let inscriptions = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/inscriptions.json')))
   let config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib/config.json')))
 
-  let counts = {}
+  // Generate trait counts (i.e. how many of each trait are there)
+  let _traitCounts = {}
   for (let inscription of inscriptions) {
     let attributes = inscription.meta.attributes
     for (let attribute of attributes) {
-      if (!(attribute.trait_type in counts)) {
-        counts[attribute.trait_type] = {}
+      if (!(attribute.trait_type in _traitCounts)) {
+        _traitCounts[attribute.trait_type] = {}
       }
-      if (!(attribute.value in counts[attribute.trait_type])) {
-        counts[attribute.trait_type][attribute.value] = 0
+      if (!(attribute.value in _traitCounts[attribute.trait_type])) {
+        _traitCounts[attribute.trait_type][attribute.value] = 0
       }
-      counts[attribute.trait_type][attribute.value]++
+      _traitCounts[attribute.trait_type][attribute.value]++
     }
-
+    
     inscription.inscription_number = await fetchInscriptionNumber(inscription.id)
   }
 
-  let properties = {}
-  let propertyNames = Object.keys(counts)
+  // Now we have trait counts, need to sort them so they are displayed correctly in the filter pane
+  // Traits are sorted by their count, and properties are sorted alphabetically
+  // Properties starting with numbers (e.g 1/1 are moved to the end)
+  let traitCounts = {}
+  let propertyNames = Object.keys(_traitCounts)
   propertyNames.sort()
-  // Manually move 1/1 to the end
-  propertyNames.push(propertyNames.splice(0, 1))
+  // Manually move numeric properties to end
+  while (/\d/.test(propertyNames[0][0])) {
+    propertyNames.push(propertyNames.splice(0, 1))
+  }
+
   for (let property of propertyNames) {
-    properties[property] = {}
-    let traitNames = Object.keys(counts[property])
+    traitCounts[property] = {}
+    // Sort trait names alphabetically first, then by count (that way, traits with same counts are sorted alphabetically)
+    let traitNames = Object.keys(_traitCounts[property])
     traitNames.sort()
-    traitNames.sort((a, b) => counts[property][b] - counts[property][a])
+    traitNames.sort((a, b) => _traitCounts[property][b] - _traitCounts[property][a])
     for (let trait of traitNames) {
-      properties[property][trait] = false
+      traitCounts[property][trait] = _traitCounts[property][trait]
     }
   }
 
   return {
     props: {
       inscriptions,
-      properties,
-      counts,
+      traitCounts,
       config
     }
   }
 }
 
-function setQueryFilters(router, filterList) {
-  if (filterList.length > 0) {
-    let query = filterList.map((filter) => encodeURIComponent(`${filter.property}-${filter.trait}`)).join('&')
+function setQuery(router, filterList) {
+  var query = encodeURIComponent(filterList.map((filter) => `${filter.property}-${filter.trait}`).join('.'))
+  query = `filters=${query}`
+  
+  // Check if query is different. No need to do anything if it is the same
+  var currentQuery = router.asPath
+  currentQuery = currentQuery.substring(currentQuery.indexOf('?') + 1)
+  if (currentQuery == query) {
+    return
+  }
+
+  if (query.length > 0) {
     router.push(`/?${query}`, undefined, {shallow: true})
   } else {
-    router.push(`/`, undefined, {shallow: true})
+    router.push("/", undefined, {shallow: true})
   }
 }
 
-function resetProperties(properties) {
-  for (let property of Object.keys(properties)) {
-    for (let trait of Object.keys(properties[property])) {
-      properties[property][trait] = false
-    }
+function parseFilters(router, traitCounts, sortSelection, sortReversed) {
+  let filterQuery = router.query['filters']
+  if (!filterQuery) {
+    return []
   }
-}
-
-function queryToFilters(query, properties) {
   var queryValid = true
-  let filterList = []
+  let filters = []
 
-  for (let key of Object.keys(query)) {
-    let params = key.split('-')
+  let splitList = filterQuery.split('.')
+  for (let filterString of splitList) {
+    let params = filterString.split('-')
     if (params.length != 2) {
       queryValid = false
       continue
     }
     let filter = {property: params[0], trait: params[1]}
-    if (filter.property in properties && filter.trait in properties[filter.property]) {
-      properties[filter.property][filter.trait] = true
-      filterList.push(filter)
+    if (filter.property in traitCounts && filter.trait in traitCounts[filter.property]) {
+      filters.push(filter)
     } else {
       queryValid = false
     }
   }
 
-  return { queryValid, filterList }
+  if (!queryValid) {
+    setQuery(router, filters)
+  }
+
+  return filters
 }
 
-function filterInscriptions(inscriptions, filters) {
+function generateTraitFilters(filters, traitCounts) {
+  let traitFilters = {}
+  for (let property of Object.keys(traitCounts)) {
+    traitFilters[property] = {}
+    for (let trait of Object.keys(traitCounts[property])) {
+      traitFilters[property][trait] = false
+    }
+  }
+
+  for (let filter of filters) {
+    traitFilters[filter.property][filter.trait] = true
+  }
+  return traitFilters
+}
+
+function filterInscriptions(inscriptions, traitFilters) {
   let filteredInscriptions = []
   for (let inscription of inscriptions) {
     var inFilter = true
     
-    for (let property of Object.keys(filters)) {
+    for (let property of Object.keys(traitFilters)) {
       // If all filters are false, then we match everything, so skip this property
-      if (!Object.values(filters[property]).reduce((acc, val) => acc || val)) {
+      if (!Object.values(traitFilters[property]).reduce((acc, val) => acc || val)) {
         continue
       }
       
       // If there is a attribute that matches a filter for this property, it could be in the filter, otherwise it's definitely not
       var propertyInFilter = false
       for (let attribute of inscription.meta.attributes) {
-        if (attribute.trait_type == property && filters[attribute.trait_type][attribute.value]) {
+        if (attribute.trait_type == property && traitFilters[attribute.trait_type][attribute.value]) {
           propertyInFilter = true
           break
         }
@@ -128,52 +159,46 @@ function filterInscriptions(inscriptions, filters) {
   return filteredInscriptions
 }
 
-export default function Collection({ inscriptions, properties, counts, config }) {
+export default function Collection({ inscriptions, traitCounts, config }) {
   const router = useRouter()
-  const [filters, setFilters] = useState(properties)
-  const [filterList, setFilterList] = useState([])
-  const [filteredInscriptions, setFilteredInscriptions] = useState(inscriptions)
+
+  const [filters, setFilters] = useState(() => parseFilters(router, traitCounts))
+  const [traitFilters, setTraitFilters] = useState(() => generateTraitFilters(filters, traitCounts))
+  const [filteredInscriptions, setFilteredInscriptions] = useState(() => 
+      filterInscriptions(inscriptions, traitFilters))
   const [sideBarOpen, setSideBarOpen] = useState(false)
 
   // Set up filters when query is changed
   useEffect(() => {
-    resetProperties(properties)
-    let { queryValid, filterList } = queryToFilters(router.query, properties)
-    
-    if (!queryValid) {
-      setQueryFilters(router, filterList)
-    } else {
-      setFilters({...properties})
-      setFilterList(filterList)
-      setFilteredInscriptions(filterInscriptions(inscriptions, properties))
-    }
-  }, [router.query, router, inscriptions, properties])
+    let filters = parseFilters(router, traitCounts)
+    setFilters(filters)
+
+    let traitFilters = generateTraitFilters(filters, traitCounts)
+    setTraitFilters(traitFilters)
+
+    setFilteredInscriptions(filterInscriptions(inscriptions, traitFilters))
+  }, [router, router.query, inscriptions, traitCounts])
 
   function toggleSideBar() {
     setSideBarOpen(!sideBarOpen)
   }
 
-  function setState(property, trait, state) {
-    // Make sure each event is only responded to once, even if function is called multiple times
-    if (filters[property][trait] == state)
-      return
-    filters[property][trait] = state
-
-    // Add/remove filter from filterList, then set the query
+  // Add/remove filter from filterList, then set the query
+  function setFilterState(property, trait, state) {
     let filter = {"property": property, "trait": trait}
     if (state) {
-      filterList.push(filter)
+      filters.push(filter)
     } else {
       var index = -1
-      for (let i = 0; i < filterList.length; i++) {
-        if (filterList[i].property == filter.property && filterList[i].trait == filter.trait) {
+      for (let i = 0; i < filters.length; i++) {
+        if (filters[i].property == filter.property && filters[i].trait == filter.trait) {
           index = i
           break
         }
       }
-      filterList.splice(index, 1)
+      filters.splice(index, 1)
     }
-    setQueryFilters(router, filterList)
+    setQuery(router, filters)
   }
 
   return (
@@ -186,16 +211,16 @@ export default function Collection({ inscriptions, properties, counts, config })
               key="desc"/>
       </Head>
       <main className={styles.main}>
-        <SideBar isOpen={sideBarOpen} filters={filters} counts={counts} setState={setState} toggleSideBar={toggleSideBar}/>
+        <SideBar isOpen={sideBarOpen} filters={traitFilters} counts={traitCounts} setState={setFilterState} toggleSideBar={toggleSideBar}/>
         <div className={styles.mainContainer}>
           <div className={styles.topContainer}>
             <Button text="Filter" icon="filter" onClick={toggleSideBar} style={{ letterSpacing: "0.07rem" }}/>
-            {filterList.length > 0 &&
+            {filters.length > 0 &&
               <div className={styles.filterContainer}>
-                {filterList.map((filter) => 
-                  <FilterCard property={filter.property} trait={filter.trait} setState={setState} key={`card_${filter.property}_${filter.trait}`}/>
+                {filters.map((filter) => 
+                  <FilterCard property={filter.property} trait={filter.trait} setState={setFilterState} key={`card_${filter.property}_${filter.trait}`}/>
                 )}
-                <p className={styles.clearAll} onClick={() => setQueryFilters(router, [])}>Clear All</p> 
+                <p className={styles.clearAll} onClick={() => setQuery(router, [])}>Clear All</p> 
               </div>
             }
           </div>
