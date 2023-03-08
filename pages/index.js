@@ -190,14 +190,14 @@ export default function Collection({ inscriptions, properties, counts, config })
         <div className={styles.mainContainer}>
           <div className={styles.topContainer}>
             <Button text="Filter" icon="filter" onClick={toggleSideBar} style={{ letterSpacing: "0.07rem" }}/>
-            <div className={styles.filterContainer}>
-              {filterList.map((filter) => 
-                <FilterCard property={filter.property} trait={filter.trait} setState={setState} key={`card_${filter.property}_${filter.trait}`}/>
-              )}
-              {filterList.length > 0 &&
-                <p className={styles.clearAll} onClick={() => setQueryFilters(router, [])}>Clear All</p>
-              }
-            </div>
+            {filterList.length > 0 &&
+              <div className={styles.filterContainer}>
+                {filterList.map((filter) => 
+                  <FilterCard property={filter.property} trait={filter.trait} setState={setState} key={`card_${filter.property}_${filter.trait}`}/>
+                )}
+                <p className={styles.clearAll} onClick={() => setQueryFilters(router, [])}>Clear All</p> 
+              </div>
+            }
           </div>
           <div className={styles.collectionContainer}>
             {filteredInscriptions.map((inscription) => 
